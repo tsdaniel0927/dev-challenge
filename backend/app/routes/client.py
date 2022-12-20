@@ -7,6 +7,7 @@ from fastapi import APIRouter, Depends  # Body,
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from app import config, models, utils, schemas
+from pydantic import BaseModel
 
 
 router = APIRouter()
@@ -36,9 +37,21 @@ def create_client(
     db.commit()
     return db_client
 
-        
 
+@router.put("/client", response_model=models.Client)
+def put_item(
+    *,
+    db: Session = Depends(utils.get_db),
+    id: int,
+    ## client:models.Client
+):
+    client_model = db.query(schemas.Client).filter(schemas.Client.id == id).first()
 
+    client_model.update({ 'id':0, 'name':'bob', 'email':'bob@gmail.com', 'company':'BHP', 'address':'6000', 'age': 29}, synchronize_session=False)     ### error 422
+    db.add(client_model)
+    db.commit()
+    
+    return True
 
 
 @router.delete("/client")

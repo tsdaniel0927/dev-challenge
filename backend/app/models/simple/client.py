@@ -9,6 +9,7 @@ class Client(Base):
     email : str = None
     company : str = None
     address : str = None
+    age : int = None
 
 
 

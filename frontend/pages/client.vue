@@ -7,6 +7,9 @@
         <template v-slot:item.active="{ item }">
           <v-btn icon @click="deleteClient(item.id)"><v-icon>mdi-delete</v-icon></v-btn>
         </template>
+        <template v-slot:item.edit="{ item }">
+          <v-btn depressed color="primary" @click = "editClient(item.id)"> Edit </v-btn>
+        </template>
       </v-data-table>
       <v-dialog v-model="dialog">
         <client-form
@@ -36,7 +39,9 @@
           { text: 'Email', value: 'email' },
           { text: 'Company', value: 'company' },
           { text: 'Address', value: 'address' },
+          { text: 'Age', value: 'age' }, //not displaying
           { text: 'Delete', value: 'active' },
+          { text: 'Edit', value: 'edit' },
         ],
       }
     },
@@ -49,6 +54,18 @@
         await this.$axios.$delete('/client/client', { params: { id } })
         this.getClient()
       },
+      async editClient(id) {
+        await this.$axios.$put('/client/client', { params: { id } })
+        this.getClient()
+      },
+      // count the total in a row
+      // total(){
+      //   const totals = this.clients.reduce((acc, d) => {
+      //   acc.age += d.age
+      //   return acc
+      // })
+      //   return totals
+      // }
     },
   }
   </script>

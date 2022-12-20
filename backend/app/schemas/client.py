@@ -17,4 +17,5 @@ class Client(Base):
     email = Column(String)
     company = Column(String)
     address = Column(String)
+    age = Column(Integer)
     sqlite_autoincrement=True

@@ -6,6 +6,7 @@
         <v-text-field v-model="client.email" label="Email" />
         <v-text-field v-model="client.company" label="Company" />
         <v-text-field v-model="client.address" label="Address" />
+        <v-text-field v-model="client.age" label="Age" />
       </v-card-text>
       <v-card-actions>
         <v-btn :disabled="lock" @click="addClient()" color="primary">Save</v-btn>
